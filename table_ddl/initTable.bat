@@ -1,0 +1,1 @@
+Java -cp ../src/main/webapp/WEB-INF/classes -Djava.ext.dirs=../src/main/webapp/WEB-INF/lib cn.myapps.init.InitTable

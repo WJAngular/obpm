@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	title="绑定视图" width="498" height="342" cornerRadius="4"
+	backgroundAlpha="0.8" 
+	close="{titlewindow1_closeHandler(event)}" showCloseButton="true" alpha="0.9">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import main.flex.cn.myapps.core.printer.components.ViewCanvas;
+			import main.flex.cn.myapps.core.printer.components.View;
+			import main.flex.cn.myapps.core.printer.components.ItemTextBox;
+			import main.flex.cn.myapps.core.printer.components.base.ItemDraw;
+			
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ListEvent;
+			import mx.managers.PopUpManager;
+			
+			
+			private var _viewCanvas:ViewCanvas;
+			
+			private var _views:XML = new XML();
+			
+			[Bindable]
+			private var repeatTotalList:ArrayCollection = new ArrayCollection([{label:'5条',data:5},{label:'10条',data:10},{label:'20条',data:20},{label:'30条',data:30},{label:'全部',data:'all'},{label:'自定义',data:'custom'}]);
+			[Bindable]
+			public function get views():XML
+			{
+				return _views;
+			}
+
+			public function set views(value:XML):void
+			{
+				_views = value;
+			}
+
+			public function get viewCanvas():ViewCanvas
+			{
+				return _viewCanvas;
+			}
+
+			public function set viewCanvas(value:ViewCanvas):void
+			{
+				_viewCanvas = value;
+			}
+
+			protected function titlewindow1_closeHandler(event:CloseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+			protected function onrepeatTotalChange(event:Event):void
+			{
+				if((event.target as ComboBox).selectedItem.data=="custom"){
+					custom.visible=true;
+					customLabel.visible=true;
+				}else{
+					custom.visible=false;
+					customLabel.visible=false;
+					custom.text='';
+				}
+			}
+
+
+			protected function bindingView(event:Event):void
+			{
+				this.viewCanvas.bindingView = viewGroup.selectedItem.@id;
+				if(custom.text.length>0){
+					viewCanvas.repeat =Number(custom.text);
+				}else{
+					viewCanvas.repeat = repeatTotal.selectedItem.data;
+				}
+				this.viewCanvas.label.text = "View :"+viewGroup.selectedItem.@name;
+				this.viewCanvas.label.width =350;
+				this.viewCanvas.redraw();
+				PopUpManager.removePopUp(this);
+			}
+
+
+			protected function viewGroup_itemClickHandler(event:ListEvent):void
+			{
+				viewName.text = viewGroup.selectedItem.@name;
+			}
+
+		]]>
+	</mx:Script>
+	
+	<mx:TabNavigator x="10" y="10" width="455" height="283">
+		<mx:Canvas label="基本" width="100%" height="100%">
+	<mx:DataGrid  id="viewGroup" x="7" y="40" width="436" height="157" doubleClickEnabled="true" itemDoubleClick="{bindingView(event);}" itemClick="viewGroup_itemClickHandler(event)">
+		<mx:dataProvider>
+			{views.children()}
+		</mx:dataProvider>
+		<mx:columns>
+			<mx:DataGridColumn headerText="视图名称" dataField="@name" />
+			<mx:DataGridColumn headerText="ID" dataField="@id" />
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:TextInput id="viewName" x="10" y="11" width="328"/>
+	<mx:Button x="385" y="11" label="确定" click="{bindingView(event);}"/>
+	<mx:ComboBox x="74" y="203" id="repeatTotal" width="101" change="onrepeatTotalChange(event);">
+				<mx:dataProvider>
+				{repeatTotalList}
+				</mx:dataProvider>
+	</mx:ComboBox>
+	<mx:Label id="customLabel" x="253" y="203" text="条" fontSize="12" fontWeight="normal" visible="false"/>
+	<mx:TextInput id="custom" x="183" y="203" width="62" enabled="true" visible="false"/>
+	<mx:Label x="10" y="205" text="显示条数：" fontSize="12"/>
+	</mx:Canvas>
+	</mx:TabNavigator>
+</mx:TitleWindow>

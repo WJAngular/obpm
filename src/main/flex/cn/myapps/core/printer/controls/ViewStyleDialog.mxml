@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	title="面板属性" width="494" height="312" cornerRadius="4"
+	backgroundAlpha="0.8" 
+	close="{titlewindow1_closeHandler(event)}" showCloseButton="true" alpha="0.9"
+	>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.managers.PopUpManager;
+			import mx.events.CloseEvent;
+			import main.flex.cn.myapps.core.printer.components.base.MyCanvas;
+			
+			[Bindable]
+			private var viewStyle:ArrayCollection = new ArrayCollection([{label:'第一页显示',data:'showInFirstPage'},{label:'中间页显示',data:'showInMiddlePages'},{label:'最后页显示',data:'showInLastPage'},{label:'所有页显示',data:'showInAllPages'}]);
+			private var _canvas:MyCanvas;
+			
+			public function get canvas():MyCanvas
+			{
+				return _canvas;
+			}
+
+			public function set canvas(value:MyCanvas):void
+			{
+				_canvas = value;
+			}
+			
+			protected function titlewindow1_closeHandler(event:CloseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+				
+			}
+			
+			protected function doExecution(event:MouseEvent):void
+			{
+				canvas.viewStyle = dViewStyle.selectedItem.data;
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</mx:Script>
+	<mx:TabNavigator x="10" y="10" width="455" height="225">
+		<mx:Canvas label="显示风格" width="100%" height="100%">
+			<mx:ComboBox x="79" y="19" id="dViewStyle" width="201">
+			<mx:dataProvider>
+				{viewStyle}
+			</mx:dataProvider>
+			</mx:ComboBox>
+			<mx:Label x="10" y="21" text="显示风格：" fontSize="12" fontWeight="normal"/>
+		</mx:Canvas>
+	</mx:TabNavigator>
+	<mx:Button x="400" y="240" label="确定" click="doExecution(event)"/>
+	
+</mx:TitleWindow>

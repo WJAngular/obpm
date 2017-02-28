@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="webuploader.css">
+<script type="text/javascript" src="webuploader.js"></script>
+<script type="text/javascript" src="upload.js"></script>
+<script type="text/javascript">
+			var ctx = "http://www.aitaa.cn"
+
+	$(document).ready(function() {
+		var extensions = "rar,zip,7z,gz";
+		var mimeTypes = "application/zip,application/rar,application/7z";
+		var fileSizeLimit = "524288000";
+		fileSizeLimit=fileSizeLimit==""?undefined:fileSizeLimit;
+		var accept={title: 'RAR',extensions: extensions,mimeTypes: mimeTypes}
+		if(mimeTypes==""||extensions==""){
+			accept =null;
+		}
+		$("#uploader").powerWebUpload({ hiddenInputId: "hfFilePath",accept :accept,
+		    fileNumLimit:1,fileSizeLimit:fileSizeLimit,
+		    onComplete:uploadComplete
+		});
+	});
+	function uploadComplete(json){
+		//var callBackFunctionName = "${param.callBackFunctionName}";
+		//var callBackParamsString = "${param.callBackParamsString}";
+		//var filePath = json.filePath;
+		//parent[callBackFunctionName](filePath,callBackParamsString);
+	}
+</script>
+</head>
+<body>
+	<div id="uploader" class="wu-example">
+		
+	</div>
+    <input id="hfFilePath" type="hidden" name="uploadhidden" />
+</body>
+</html>

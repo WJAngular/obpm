@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" borderStyle="none" height="34" creationComplete="init()" layout="horizontal" headerHeight="0" backgroundColor="#E2FCA5" backgroundAlpha="1.0">
+	<mx:Script>
+		<![CDATA[
+		import mx.managers.PopUpManager;
+			[Bindable]
+			public var message:String;
+			[Bindable]
+			public var imgSources:String;
+		    private var timer:Timer;
+			private function init():void{
+				 timer = new Timer(2000); 
+				 timer.addEventListener(TimerEvent.TIMER, closeCanvas); 
+				 timer.start(); 
+
+			}
+			private function closeCanvas(event:TimerEvent):void{
+				PopUpManager.removePopUp(this);
+				timer.stop();
+			}
+		]]>
+	</mx:Script>
+		<mx:Image source="{imgSources}"/>
+		<mx:Label text="{message}"/>
+</mx:TitleWindow>

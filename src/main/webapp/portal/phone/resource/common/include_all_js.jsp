@@ -1,0 +1,1 @@
+<script type='text/javascript' src='<s:url value='/portal/phone/resource/common/obpm.skin.all.min.js?v=2016-09-012151604774'/>'></script>

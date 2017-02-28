@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="absolute" 
+	width="746" 
+	height="340" 
+	title="筛选" 
+	showCloseButton="true" 
+	xmlns:ns1="com.google.code.flexiframe.*"
+    creationComplete="init()"
+    close="cancel()"
+	>
+	<mx:Script source="event/SearchFormDialog.as"/>
+	<ns1:IFrame width="100%" height="100%" id="searchFormIFrame">
+	</ns1:IFrame>
+</mx:TitleWindow>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application  resize="{onApplicationReSize(event);}"
+	 creationComplete="{onload(event);}"
+	 xmlns:mx="http://www.adobe.com/2006/mxml"
+	 layout="absolute" fontSize="12" xmlns:components="main.flex.cn.myapps.core.printer.components.*">
+	 
+	 
+	<mx:Script>
+		<![CDATA[
+			
+		]]>
+	</mx:Script>
+	<mx:Script source="main/flex/cn/myapps/core/printer/events/scripts/mouseEventScript.as"/>
+	<mx:Script source="main/flex/cn/myapps/core/printer/events/scripts/Global.as"/>
+	<mx:Script source="main/flex/cn/myapps/core/printer/events/scripts/addComponents.as"/>
+	<mx:Script source="main/flex/cn/myapps/core/printer/events/scripts/Properties.as"/>
+	<mx:Script source="main/flex/cn/myapps/core/printer/events/scripts/LoadScript.as"/>
+	<mx:Script source="main/flex/cn/myapps/core/printer/events/scripts/ContextMenuScript.as"/>
+	<mx:Script source="main/flex/cn/myapps/core/printer/events/scripts/NavigationEventScript.as"/>
+	<mx:Script source="main/flex/cn/myapps/core/printer/util/generateXML.as"/>
+	<mx:Script source="main/flex/cn/myapps/core/printer/util/parseXML.as"/>
+	
+	<mx:Glow id="glow1" blurXFrom="0" color="0xFF0000" blurXTo="15" blurYFrom="0" blurYTo="15" />
+	<mx:Glow id="glow2" alphaFrom="50" alphaTo="0" blurXFrom="15" color="0x00FF00" blurXTo="0" blurYFrom="15" blurYTo="0" />
+	
+	
+	
+	
+	<!-- 将可视元素（组件、可见对象）放在此处 -->
+	
+		<mx:ApplicationControlBar width="100%" x="0" paddingTop="5" paddingBottom="5">
+		<mx:PopUpMenuButton x="164" y="10" label="常用功能"
+							dataProvider="{popMenuItem.children()}"   
+							labelField="@label" width="92"
+							itemClick="{navigationBt_itemClick(event)}"/>
+		
+		<mx:Spacer width="90%"/>
+		<mx:Button label="保存" click="doSave(event)"/>
+	</mx:ApplicationControlBar>
+	
+	<mx:HDividedBox y="44" width="813"  id="hdbox">
+		<mx:VDividedBox id="ControlBox" height="100%" width="280">
+			<mx:Panel x="-12" y="-74" width="100%" height="300" title="组件面板">
+			<mx:Accordion  width="100%" height="100%" cornerRadius="4">
+				<mx:Canvas label="Report Element" width="100%" height="100%">
+				<mx:TileList width="100%" height="100%" columnCount="3" id="cElement">
+					<mx:dataProvider>
+								<mx:Object label="Label" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/label.gif')"></mx:Object>
+								<mx:Object label="Field" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/field.gif')"></mx:Object>
+								<mx:Object label="Line" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/line.gif')"></mx:Object>
+					</mx:dataProvider>
+				</mx:TileList>
+				</mx:Canvas>
+				<mx:Canvas label="Report Canvas" width="100%" height="100%">
+				<mx:TileList width="100%" height="100%" columnCount="3" id="cCanvas">
+					<mx:dataProvider>
+								<mx:Object label="Form" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/from.gif')"></mx:Object>
+								<mx:Object label="Detail" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/detail.gif')"></mx:Object>
+								<mx:Object label="View" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/view.gif')"></mx:Object>
+								<mx:Object label="Header" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/header.gif')"></mx:Object>
+								<mx:Object label="Footer" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/footer.gif')"></mx:Object>
+					</mx:dataProvider>
+				</mx:TileList>
+				</mx:Canvas>
+				<mx:Canvas label="Report Tools" width="100%" height="100%">
+				<mx:TileList width="100%" height="100%" columnCount="3" id="cTools">
+					<mx:dataProvider>
+						<mx:Object label="PageNumber" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/pagenumbe.gif')"></mx:Object>
+					</mx:dataProvider>
+				</mx:TileList>
+				</mx:Canvas>
+			</mx:Accordion>
+			<!--
+				<mx:TileList id="controls" x="1" y="0" width="100%" height="100%"
+							  columnCount="3">
+					<mx:dataProvider>
+					<mx:Object label="选择" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/0.png')"></mx:Object>
+					<mx:Object label="Line" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/2.png')"></mx:Object>
+					<mx:Object label="Field" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/2.png')"></mx:Object>
+					<mx:Object label="Label" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/2.png')"></mx:Object>
+					<mx:Object label="View" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/2.png')"></mx:Object>
+					<mx:Object label="Detail" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/2.png')"></mx:Object>
+					<mx:Object label="Form" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/2.png')"></mx:Object>
+					<mx:Object label="Header" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/2.png')"></mx:Object>
+					<mx:Object label="Footer" icon="@Embed('main/flex/cn/myapps/core/printer/asserts/2.png')"></mx:Object>
+					</mx:dataProvider>
+				</mx:TileList>
+				-->
+			</mx:Panel>
+			<mx:Panel title="属性" width="100%">
+				<mx:DataGrid id="pProperty" width="100%" height="100%" 
+					editable="false" itemEditEnd="onPropertyEditEnd(event);">
+					<mx:columns>
+						<mx:DataGridColumn sortable="false" headerText="名称" width="80" dataField="name" editable="false"/>
+						<mx:DataGridColumn sortable="false" headerText="值" 
+										   dataField="value" 
+										   wordWrap="true"/>
+					</mx:columns>
+					<mx:dataProvider>
+						{properties}
+					</mx:dataProvider>
+				</mx:DataGrid>
+			</mx:Panel>
+		</mx:VDividedBox>
+	
+
+		<mx:VBox id="canvas"  verticalGap="0">
+		<components:ReportCanvas id="report" borderStyle="solid"
+				 mouseDown="{onReportCanvasMouseDown(event)}">
+		</components:ReportCanvas>
+		</mx:VBox>
+		<mx:VBox id="tree" width="120"  verticalGap="0">
+			<mx:Tree  borderSides="0"  id="tree1" labelField="@name" width="100%" height="100%" alpha="0.91">
+			
+        </mx:Tree>
+		</mx:VBox>
+	</mx:HDividedBox>
+	
+</mx:Application>

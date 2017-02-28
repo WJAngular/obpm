@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="262" height="126" title="选择企业域"
+	 creationComplete="init()" close="cancel()" showCloseButton="true">
+	<mx:Script source="event/DomainDialogEvent.as"/>
+	<mx:ComboBox x="63" y="10" width="161" id="domainCombobox"></mx:ComboBox>
+	<mx:Label x="10" y="12" text="企业域："/>
+	<mx:LinkButton x="52" y="54" label="确定" icon="@Embed(source='../assets/ok.png')" click="ok(event)"/>
+	<mx:LinkButton x="131" y="54" label="取消" icon="@Embed(source='../assets/cancel.png')" click="cancel()"/>
+</mx:TitleWindow>

@@ -1,0 +1,18 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+  <package name="proStage" extends="myapps-default,json-default" namespace="/stage">
+  	<action name="prostageJsp" class="net.gdsc.action.prostage.ProStageAction" method="doProstageJsp">
+		<result name="success" type="dispatcher">
+			/gdsc/prostage.jsp
+		</result>
+	</action>
+	<action name="prostage" class="net.gdsc.action.prostage.ProStageAction" method="doProstage">
+		<result name="success" type="json">
+			<param name="root">result</param>
+		</result>
+	</action>
+  </package>
+  
+</struts>

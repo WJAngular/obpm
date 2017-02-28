@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" 
+    layout="absolute" 
+    showCloseButton="true" 
+    width="586" 
+    height="170" 
+    close="cancel()"
+    creationComplete="init()" 
+    title="复制文件到" 
+     fontSize="12">
+    <mx:Script>
+    	<![CDATA[
+    		import mx.rpc.events.ResultEvent;
+    		import mx.collections.ArrayCollection;
+    		import mx.managers.PopUpManager;
+    		import mx.core.Application;
+    		
+    		public var oldPath:String;
+    		public var selectPath:String;
+    		public var tempAC:ArrayCollection;
+    		
+    		protected function init():void{
+    			removeDirectory.text = oldPath;
+    			Application.application.FileManagerRO.addEventListener(ResultEvent.RESULT,getAllFolderPathsResult);
+    			Application.application.FileManagerRO.getAllFolderPaths(Application.application.realPath);
+    		}
+    		
+    		//
+    		protected function getAllFolderPathsResult(event:ResultEvent):void{
+    			Application.application.FileManagerRO.removeEventListener(ResultEvent.RESULT,getAllFolderPathsResult);
+    			var RemoveFolderPathsScript:XML = XML(event.result);
+		        var results:XMLList = RemoveFolderPathsScript.path;
+		        pathsComboBox.dataProvider = results;
+    		}
+    		
+    		protected function cancel():void{
+    			PopUpManager.removePopUp(this);
+    		}
+    		
+    		protected function start():void{
+    			Application.application.FileManagerRO.addEventListener(ResultEvent.RESULT,copyMoreFileResult);
+    			Application.application.FileManagerRO.copyMoreFile(tempAC,String(pathsComboBox.selectedItem.@realPath));
+    		}
+    		
+    		protected function copyMoreFileResult(event:ResultEvent):void{
+    			Application.application.FileManagerRO.removeEventListener(ResultEvent.RESULT,copyMoreFileResult);
+    			Application.application.FileManagerRO.addEventListener(ResultEvent.RESULT,Application.application.getFolderFileResult);
+  				Application.application.FileManagerRO.getFolderFile(selectPath,Application.application.rolelist);
+  				Application.application.selectFileAC.removeAll();
+  				cancel();
+    		}
+    	]]>
+    </mx:Script>
+    <mx:ComboBox x="147" y="48" width="409" id="pathsComboBox"></mx:ComboBox>
+    <mx:Label x="10" y="50" text="选择复制目标文件夹:" width="129" textAlign="right"/>
+    <mx:Label x="10" y="10" text="复制文件原文件夹:" id="removeDirectoryLabel" width="129" textAlign="right"/>
+    <mx:Label x="147" y="10" width="409" id="removeDirectory"/>
+    <mx:LinkButton x="147" y="94" label="开始复制文件" icon="@Embed(source='assets/mxlinkbar/folder_page.png')" click="start()" fontWeight="normal"/>
+</mx:TitleWindow>
+

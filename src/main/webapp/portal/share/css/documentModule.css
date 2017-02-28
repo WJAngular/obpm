@@ -1,0 +1,81 @@
+/**
+	表单控件样式
+**/
+/**表单页面初始化样式**/
+@IMPORT url("documentBase.css");
+/**左右选择框控件样式**/
+@IMPORT url("../component/selectAboutField/css/jquery.multiselect2side.css");
+/**下拉提示框控件样式**/
+/*@IMPORT url("../component/suggest/jquery.autocomplete.css");*/
+@IMPORT url("../component/suggest/typeahead.css");
+/**树形部门选择框控件样式**/
+@IMPORT url("../component/dialog/css/dialog.css");
+
+/**单行文本框、用户选择框、下拉提示框样式**/
+.input-cmd {
+	align: left;
+	background-color: #FFF;
+	border: 1px solid #999;
+	margin: 1px;
+	padding: 1px;
+	width: auto;
+}
+
+/**选项卡开始**/
+.basictab {
+	background-color: #ebeef4;
+	background-image: url("../component/tabField/tab/images/tab_container_back.gif");
+	background-repeat: repeat;
+	overflow:hidden;
+	height:26px;
+	text-align: left;
+}
+
+.basictab table {
+	font: bold 12px Verdana;
+	list-style-type: none;
+	margin-bottom: 0;
+	margin-left: 0;
+	text-align: left;
+	/*set to left, center, or right to align the menu as desired*/
+}
+
+.basictab div {
+	margin: 0 5px;
+}
+
+.basictab div a {
+	color: #416aa3;
+	font-weight: 400;
+	height: 23px;
+	line-height: 23px;
+	margin-right: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
+	text-decoration: none;
+	vertical-align: middle;
+	white-space: nowrap;
+	display: block;
+}
+
+.basictab div a.current {
+	color: #15428b;
+	background-image: url("../component/tabField/tab/images/tab_back_curr.gif");
+	background-repeat: repeat-x;
+	background-position: bottom;
+	border-left: 1px solid #adbcd4;
+	border-right: 1px solid #adbcd4;
+	border-bottom: 0px;
+	font-weight: bold;
+}
+
+.tabcontainer {
+	clear: left;
+	width: 100%;
+	/*height of 2nd level sub menus. Set to largest's sub menu's height to avoid jittering.*/
+}
+
+.tabcontent {
+	display: none;
+}
+/**选项卡结束**/

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="850" height="472" title="预览" creationComplete="init()" 
+	showCloseButton="true" close="cancel()" xmlns:ns1="com.google.code.flexiframe.*">
+	<mx:Script source="event/PreviewDialogEvent.as"/>
+	<mx:ApplicationControlBar x="0" y="0" width="100%" id="previewApplicationControlBar">
+		<mx:LinkButton icon="@Embed(source='../assets/chartview/PieChart.png')" id="PieChart" click="changeChartTypeEvent(event)"/>
+		<mx:LinkButton icon="@Embed(source='../assets/chartview/BarChart.png')" id="BarChart" click="changeChartTypeEvent(event)"/>
+		<mx:LinkButton icon="@Embed(source='../assets/chartview/AreaChart.png')" id="AreaChart" click="changeChartTypeEvent(event)"/>
+		<mx:LinkButton icon="@Embed(source='../assets/chartview/ColumnChart.png')" id="ColumnChart" click="changeChartTypeEvent(event)"/>
+		<mx:LinkButton icon="@Embed(source='../assets/chartview/LineChart.png')" id="LineChart" click="changeChartTypeEvent(event)"/>
+		<mx:LinkButton icon="@Embed(source='../assets/chartview/PlotChart.png')" id="PlotChart" click="changeChartTypeEvent(event)"/>
+		<mx:VRule width="1" height="20"/>
+		<mx:LinkButton icon="@Embed(source='../assets/report_go.png')" label="导出为PDF" click="exportEvent(event)"/>
+		<mx:LinkButton icon="@Embed(source='../assets/printer.png')" label="打印" click="pirntEvent(event)"/>
+	</mx:ApplicationControlBar>
+	<ns1:IFrame x="0" y="41" width="100%" height="100%" id="iframe">
+	</ns1:IFrame>
+</mx:TitleWindow>

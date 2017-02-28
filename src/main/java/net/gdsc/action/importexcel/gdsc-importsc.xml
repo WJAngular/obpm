@@ -1,0 +1,12 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+  <package name="excelManager" extends="myapps-default,json-default" namespace="/import">
+  	<action name="importSCExcel" class="net.gdsc.action.importexcel.ExcelImportAction" method="doImportExcel">
+		<result name="success" type="json">
+			<param name="root">result</param>
+		</result>
+	</action>
+  </package>
+</struts>

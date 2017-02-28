@@ -1,0 +1,51 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/css.jsp" type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script language="javascript">
+function doback() {
+  history.back();
+}
+function docontinue() {
+  top.window.location.replace("/webapp");
+}
+function doclose() {
+  parent.close();
+}
+</script>
+<title>异常提示</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+<table width="100%" height="100%" border="0" align="center">
+<tr>
+  <td width="20%">&nbsp;</td>
+  <td valign="center" align="center" width="500">
+  <table width="100%" border="0" cellspacing="1" cellpadding="5" bgcolor="#CCCCCC">
+   <tr>
+    <td bgcolor="#FFFFFF" valign="center" align="center">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" valign="center">
+        <tr>
+          <td width="37%" rowspan="2"><img src="/webapp/resource/images/tu1.gif" width="126" height="162" hspace="10" vspace="10"></td>
+          <td width="63%" valign="bottom"> 
+            <p><b><font color="#FF0000">提示信息：</font></b></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;你没有登录系统或你的登录已经过期，请登录！<br>
+            
+          </td>
+        </tr>
+       <tr>
+         <td align="right" height="30">
+              <input type="button" accesskey="c" onClick="docontinue()" value="登录" class="frm1">
+         <!--     <input type="button" name="Submit2" accesskey="c" onClick="docontinue()" value="继续" class="frm1">//-->
+              <input type="button" name="Submit3" accesskey="x" onClick="doclose()" value="关闭" class="frm1">
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+   </td>
+ </tr>
+</table>
+
+</body>
+</html>

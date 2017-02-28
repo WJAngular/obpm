@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	title="字段绑定" width="404" height="316" cornerRadius="4"
+	backgroundAlpha="0.8" backgroundColor="#FDFC9A" 
+	close="titlewindow1_closeHandler(event)" showCloseButton="true" alpha="0.9" borderColor="#18FEEB">
+	<mx:Script>
+		<![CDATA[
+			import main.flex.cn.myapps.core.printer.components.ItemTextBox;
+			import main.flex.cn.myapps.core.printer.components.base.ItemDraw;
+			
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ListEvent;
+			import mx.managers.PopUpManager;
+			
+			
+			private var _pBox:ItemTextBox;
+			
+			private var _fields:XML = new XML();
+			[Bindable]
+			public function get fields():XML
+			{
+				return _fields;
+			}
+
+			public function set fields(value:XML):void
+			{
+				_fields = value;
+			}
+
+			public function get pBox():ItemTextBox
+			{
+				return _pBox;
+			}
+
+			public function set pBox(value:ItemTextBox):void
+			{
+				_pBox = value;
+			}
+
+			protected function titlewindow1_closeHandler(event:CloseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+			
+
+
+			protected function bindingFiled(event:Event):void
+			{
+				this._pBox.bindingField = fieldGroup.selectedItem.@name;
+				this._pBox.textarea.text = fieldGroup.selectedItem.@name;
+				this._pBox.redraw();
+				PopUpManager.removePopUp(this);
+			}
+
+
+			protected function fieldGroup_itemClickHandler(event:ListEvent):void
+			{
+				filedName.text = fieldGroup.selectedItem.@name;
+			}
+
+		]]>
+	</mx:Script>
+	<mx:DataGrid  id="fieldGroup" x="7" y="40" width="365" height="229" doubleClickEnabled="true" itemDoubleClick="bindingFiled(event)" itemClick="fieldGroup_itemClickHandler(event)">
+		<mx:dataProvider>
+			{fields.children()}
+		</mx:dataProvider>
+		<mx:columns>
+			<mx:DataGridColumn headerText="字段名称" dataField="@name" />
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:TextInput id="filedName" x="10" y="11" width="247"/>
+	<mx:Button x="288" y="11" label="确定" click="bindingFiled(event)"/>
+</mx:TitleWindow>

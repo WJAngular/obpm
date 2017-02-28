@@ -1,0 +1,97 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="mbservice" extends="myapps-default"
+		namespace="/mobile/service">
+		
+		<action name="action"
+			class="cn.myapps.mobile.service.MbServiceAction"
+			method="doAction">
+			<result name="success" type="dispatcher">/mobile/toXml.jsp</result>
+			<result name="viewDocument" type="dispatcher">/mobile/toXml.jsp</result>
+			<result name="viewList" type="dispatcher">/mobile/view/displayView.action</result>
+			<result name="error" type="dispatcher">/mobile/error.jsp</result>
+			<result name="input" type="dispatcher">/mobile/error.jsp</result>
+		</action>
+
+		<action name="refresh"
+			class="cn.myapps.mobile.service.MbServiceAction"
+			method="doRefresh">
+			<result name="success" type="dispatcher">/mobile/toXml.jsp</result>
+			<result name="refreshDocument" type="dispatcher">/mobile/toXml.jsp</result>
+			<result name="error" type="dispatcher">/mobile/error.jsp</result>
+			<result name="input" type="dispatcher">/mobile/error.jsp</result>
+		</action>
+		
+		<action name="showFlowHis"
+			class="cn.myapps.mobile.service.MbServiceAction"
+			method="doShowFlowHis">
+			<result name="success" type="dispatcher">/mobile/toXml.jsp</result>
+			<result name="error" type="dispatcher">/mobile/error.jsp</result>
+			<result name="input" type="dispatcher">/mobile/error.jsp</result>
+		</action>
+		
+		<action name="newDocument"
+			class="cn.myapps.mobile.service.MbServiceAction"
+			method="doNewDocument">
+			<result name="success" type="dispatcher">/mobile/toXml.jsp</result>
+			<result name="error" type="dispatcher">/mobile/error.jsp</result>
+			<result name="input" type="dispatcher">/mobile/error.jsp</result>
+		</action>
+		
+		<action name="deleteFile" class="cn.myapps.mobile.service.MbServiceAction"
+			method="doDeleteFile">
+			<result name="success" type="dispatcher">/mobile/toXml.jsp</result>
+			<result name="error" type="dispatcher">/mobile/error.jsp</result>
+			<result name="input" type="dispatcher">/mobile/error.jsp</result>
+		</action>
+		
+		
+		<action name="fileList" class="cn.myapps.mobile.service.MbServiceAction"
+			method="doFileList">
+			<result name="success" type="dispatcher">/mobile/toXml.jsp</result>
+			<result name="error" type="dispatcher">/mobile/error.jsp</result>
+			<result name="input" type="dispatcher">/mobile/error.jsp</result>
+		</action>
+		
+		<action name="folderList" class="cn.myapps.mobile.service.MbServiceAction"
+			method="doFolderList">
+			<result name="success" type="dispatcher">/mobile/toXml.jsp</result>
+			<result name="error" type="dispatcher">/mobile/error.jsp</result>
+			<result name="input" type="dispatcher">/mobile/error.jsp</result>
+		</action>
+		
+		<action name="fileOperate" class="cn.myapps.mobile.service.MbServiceAction"
+			method="doFileOperate">
+			<result name="success" type="dispatcher">fileList.action</result>
+			<result name="error" type="dispatcher">/mobile/error.jsp</result>
+			<result name="input" type="dispatcher">/mobile/error.jsp</result>
+		</action>
+		
+		<action name="columnAction" class="cn.myapps.mobile.service.MbServiceAction"
+		    method="doColumnAction">
+		    <result name="success" type="dispatcher">/mobile/toXml.jsp</result>
+		    <result name="error" type="dispatcher">/mobile/error.jsp</result>
+		    <result name="input" type="dispatcher">/mobile/error.jsp</result>
+		</action>
+		
+		<!-- 流程启动获取参数 -->
+		<action name="startworkflow" class="cn.myapps.mobile.service.MbServiceAction"
+		    method="doStartWorkFlow">
+		   <result name="success" type="dispatcher">/mobile/toXml.jsp</result>
+		   <result name="error" type="dispatcher">/mobile/error.jsp</result>
+		   <result name="input" type="dispatcher">/mobile/error.jsp</result>
+		   <result name="displayView" type="dispatcher">../mobile/view/displayView.action</result>
+		</action>
+		
+		<action name="fileDownload"
+			class="cn.myapps.mobile.service.MbServiceAction"
+			method="doFileDownload">
+			<interceptor-ref name="params" />
+			<interceptor-ref name="chain" />
+		</action>
+		
+	</package>
+
+</struts>

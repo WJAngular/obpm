@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notifications>
+	<notification xmlns="obpm:iq:notification">
+		<pending xmlns="obpm:iq:notification:pending">
+			<action>update</action>
+		</pending>
+	</notification>
+	<notification xmlns="obpm:iq:notification">
+		<menu xmlns="obpm:iq:notification:menu">
+			<action>update</action>
+		</menu>>
+	</notification>
+	<notification xmlns="obpm:iq:notification">
+		<contact xmlns="obpm:iq:notification:contact">
+		</contact>
+	</notification>
+</notifications>

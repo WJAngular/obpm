@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" 
+        width="100%" height="100%"   initialize="init();" > 
+	<mx:Script> 
+    <![CDATA[ 
+      import mx.collections.ArrayCollection; 
+      import mx.controls.Alert; 
+      import mx.controls.ProgressBar; 
+      import mx.managers.PopUpManager;
+      import mx.events.CloseEvent;
+      import flash.net.FileReference;
+      import flash.events.*;
+      import mx.rpc.events.ResultEvent; 
+        
+      private var fileList:FileReferenceList = new FileReferenceList();  //多选文件的list 
+      //private var urlRequest:URLRequest = new URLRequest("obpm2/UploadServlet");    //处理文件上传的servlet 
+      [Bindable] 
+      public var selectedFiles: ArrayCollection = new ArrayCollection([]);;    //多选的文件分离成文件数组 
+      public var fileListSize:uint=1; 
+      public var startUpload:Boolean=false;
+      
+      public var str:String=null;//传给servlet参数
+      public var fileDesc:String=null;//浏览文件类型显示
+      public var fileExt:String=null;//浏览文件类型扩展名
+      public var maximumSize:String=null;//限制上传文件大小
+      public var contextPath:String=null;//系统根路径
+      public var servletURL:String=null;//请求路径
+      public var uploadFileNumber:String=null;//限制上传文件数量
+      public var browse:String=null;
+      public var upload:String=null;
+      public var clear:String=null;
+      public var clearlist:String=null;
+      public var cancel:String=null;
+      public var delete1:String=null;
+      public var file_Name:String=null;
+      public var file_Size:String=null;
+      public var file_Type:String=null;
+      public var file_Status:String=null;
+      public var finish:String=null;
+      public var prompt:String=null;
+      public var prompt_Message:String=null;
+      public var prompt_Message1:String=null;
+      public var prompt_Message2:String=null;
+      public var size:String=null;
+      public var result:String="";
+      public var i:int = 0;      
+      /** 
+        * 初始化 
+        */ 
+      public function init():void{ 
+      	str=Application.application.parameters.str;//接收页面参数
+    	fileDesc=Application.application.parameters.fileDesc;//接收页面参数
+    	fileExt=Application.application.parameters.fileExt;//接收页面参数
+    	maximumSize=Application.application.parameters.maximumSize;//接收页面参数
+    	contextPath=Application.application.parameters.contextPath;//接收页面参数
+    	uploadFileNumber=Application.application.parameters.uploadFileNumber;//接收页面参数
+    	servletURL=contextPath+"/UploadServlet";
+    	servletURL+="?data="+str;
+    	
+    	browse=Application.application.parameters.Browse;
+        upload=Application.application.parameters.Upload;
+        clear=Application.application.parameters.Clear;
+        clearlist=Application.application.parameters.Clear_List;
+        cancel=Application.application.parameters.Cancel;
+        delete1=Application.application.parameters.Delete;
+        file_Name=Application.application.parameters.File_Name;
+        file_Size=Application.application.parameters.File_Size;
+        file_Type=Application.application.parameters.File_Type;
+        file_Status=Application.application.parameters.File_Status;
+        finish=Application.application.parameters.Finish;
+        prompt=Application.application.parameters.Prompt;
+        prompt_Message=Application.application.parameters.Prompt_Message;
+        prompt_Message1=Application.application.parameters.Prompt_Message1;
+        prompt_Message2=Application.application.parameters.Prompt_Message2;
+        size=Application.application.parameters.Size;
+        
+        
+        btn_browse.label=browse;
+        btn_upload.label=upload;
+        clearUpload.label=clearlist;
+        clearAll.label=clear;
+        file_name_Text.headerText=file_Name;
+        file_size_Text.headerText=file_Size+"(KB)";
+        file_type_Text.headerText=file_Type;
+        file_status_Text.headerText=file_Status;
+        
+        
+    	
+        fileList.addEventListener(Event.SELECT,fileSelectHandler); 
+      } 
+      /** 
+        *监听文件选择的处理函数 
+        */ 
+      private function fileSelectHandler(event: Event): void 
+      { 
+      	  if(fileList.fileList.length>new Number(uploadFileNumber)||selectedFiles.length+1>new Number(uploadFileNumber)){ 
+          Alert.show(prompt_Message+uploadFileNumber+prompt_Message1,prompt+"："); 
+          }else{ 
+		          for(var i:int=0;i<fileList.fileList.length;i++){ 
+		            var f:FileReference = FileReference(fileList.fileList[i]);
+		            //限制上传文件大小
+		            if(f.size<new Number(maximumSize)){
+		            var obj:Object= new Object(); 
+		            obj.fileName = f.name; 
+		            obj.fileSize = f.size/1024; 
+		            obj.fileType = f.type; 
+		            obj.fileRefrence = f; 
+		            fileListSize+=f.size; 
+		            selectedFiles.addItem(obj);
+		            }else{
+		            	Alert.show(f.name+size+":"+f.size/1024+"KB,"+prompt_Message2+":"+new Number(maximumSize)/1024+"KB",prompt+"：");
+		            } 
+		          }
+               } 
+      } 
+      /** 
+        * 点击"浏览"按钮-->选择文件 
+        */ 
+      protected function selectFile():void 
+      { 
+        //浏览文件,因为是FileReferenceList所以可以多选. 并用FileFilter过滤文件类型. 
+        fileList.browse([new FileFilter(fileDesc,fileExt)]); 
+      } 
+      /** 
+        * 逐个上传文件 
+        */ 
+      private function uploadHandler(event:Event):void{
+      	if(selectedFiles.length!=0){ 
+      		clearUpload.visible=false;
+      		startUpload=true;
+      		clearAll.visible=false;
+	      	var urlRequest:URLRequest = new URLRequest(servletURL);
+	        var file:FileReference; 
+		        if(selectedFiles.length>new Number(uploadFileNumber)){ 
+		          	Alert.show(prompt_Message+uploadFileNumber+prompt_Message1,prompt+"："); 
+		        }else{
+			        if(i<selectedFiles.length){ 
+			          file = FileReference(selectedFiles[i].fileRefrence); 
+			          file.addEventListener(Event.COMPLETE, doSingleUploadFileComplete); 
+			          file.upload(urlRequest); 
+			        } 
+	            }
+       }
+      } 
+      private function doSingleUploadFileComplete(event: Event):void{ 
+        var file: FileReference = event.target as FileReference; 
+        file.removeEventListener(Event.COMPLETE, doSingleUploadFileComplete); 
+        i++;
+        uploadHandler(event); 
+      } 
+
+      public function clearFile():void{
+      	ExternalInterface.call("ev_doEmpty");
+      }
+       
+        
+    ]]> 
+  </mx:Script> 
+  <mx:Panel width="100%" height="100%" borderStyle="none" backgroundColor="#A6C9E2" layout="absolute">
+    <mx:ControlBar width="100%" height="45"  borderStyle="solid"  cornerRadius="10">
+    	  <mx:LinkButton icon="@Embed('../images/note_go.png')"  id="btn_upload" click="uploadHandler(event)"/> 
+		  <mx:LinkButton icon="@Embed('../images/note_add.png')"   click="selectFile()" id="btn_browse"/>
+		  <mx:LinkButton icon="@Embed('../images/cancel3.png')" click="selectedFiles.removeAll();"  id="clearUpload"/>
+		  <mx:LinkButton icon="@Embed('../images/cross.png')"  id="clearAll" click="clearFile()"/>
+    </mx:ControlBar>
+  	<mx:DataGrid y="50"  id="dg" width="100%" height="100%"  dataProvider="{selectedFiles}"> 
+    <mx:columns> 
+      <mx:DataGridColumn  dataField="fileName" width="150" sortable="false" id="file_name_Text"/> 
+      <mx:DataGridColumn  dataField="fileSize" width="100" sortable="false" id="file_size_Text"/> 
+      <mx:DataGridColumn  dataField="fileType" width="70" sortable="false" id="file_type_Text"/> 
+      <mx:DataGridColumn  dataField=""    width="230" sortable="false" id="file_status_Text"> 
+        <mx:itemRenderer> 
+          <mx:Component> 
+            <mx:HBox width="130" paddingLeft="2" horizontalGap="2"> 
+              <mx:Script> 
+                <![CDATA[ 
+                  import mx.controls.Alert;
+                  import mx.core.Application;
+                  
+                   
+                   override public function set data(value:Object):void{
+                    super.data = value; 
+                    cancelUpload.label=this.parentDocument.cancel;
+                    cancelUpload.toolTip=this.parentDocument.cancel;
+                    deleteUpload.label=this.parentDocument.delete1;
+                    deleteUpload.toolTip=this.parentDocument.delete1
+                    
+                    
+                    data.fileRefrence.addEventListener(ProgressEvent.PROGRESS,progressHandler); 
+                    data.fileRefrence.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA,fini);
+                  }
+                    
+                  private function progressHandler(event:ProgressEvent):void{ 
+                  	if(Application.application.startUpload){
+                    	deleteUpload.visible=false;
+                    	cancelUpload.visible=true;
+                    }
+                    progress.label="";
+                  }    
+
+                  public function fini(event: DataEvent):void{ 
+                    progress.visible=true; 
+                    progress.label=this.parentDocument.finish;
+                    cancelUpload.visible=false; 
+                    deleteUpload.visible=false;
+                    data.fileRefrence.removeEventListener(DataEvent.UPLOAD_COMPLETE_DATA,fini); 
+                    var s:ArrayCollection= this.parentDocument.selectedFiles as ArrayCollection;
+                    var index:int=s.getItemIndex(data);
+                    if(index==s.length-1){
+	                    if(event.data!="failter"){
+	                    	this.parentDocument.result+=event.data;
+	                    }
+                    if(new Number(this.parentDocument.uploadFileNumber)==1){
+                    	ExternalInterface.call("ev_doClose",event.data);
+                    }else{
+                    	ExternalInterface.call("ev_doClose",this.parentDocument.result);
+                    }
+                    }else{
+                    if(index==0){
+                    	if(event.data!="failter"){
+                    		this.parentDocument.result=event.data+";";
+                    	}
+                    }else{
+                    	if(event.data!="failter"){
+                    		this.parentDocument.result+=event.data+";";
+                    	}	
+                    }
+                    }
+                  } 
+                ]]> 
+              </mx:Script> 
+              <mx:ProgressBar id="progress" width="80%"    
+                      minimum="0" maximum="100" source="{data.fileRefrence}" 
+                      labelPlacement="center"  label = "%3%%" >
+              </mx:ProgressBar> 
+              
+              <mx:LinkButton width="20" click="cancel()"  icon="@Embed('../images/cancel.png')" id="cancelUpload" visible="false"> 
+              <mx:Script> 
+              <![CDATA[ 
+              private function cancel():void{
+              	  
+		              data.fileRefrence.cancel();
+		              progress.label =this.parentDocument.cancel; 
+              } 
+              ]]> 
+              </mx:Script> 
+              </mx:LinkButton> 
+              
+         
+              <!-- --> 
+              <mx:LinkButton width="20" click="deleteItem(event)"   icon="@Embed('../images/delete.png')" id="deleteUpload"> 
+                <mx:Script> 
+                  <![CDATA[ 
+                    import mx.collections.ArrayCollection; 
+                     
+                    private function deleteItem(event:MouseEvent):void { 
+                        
+                      var s:ArrayCollection= this.parentDocument.selectedFiles as ArrayCollection;    //取全局变量 
+                      var index:int=s.getItemIndex(data); 
+                      if (index != -1){ 
+                        s.removeItemAt(index);
+                      } 
+                    } 
+                  ]]> 
+                </mx:Script> 
+              </mx:LinkButton> 
+              
+            </mx:HBox> 
+          </mx:Component> 
+        </mx:itemRenderer> 
+      </mx:DataGridColumn> 
+    </mx:columns> 
+  </mx:DataGrid> 
+  </mx:Panel>
+</mx:Application>

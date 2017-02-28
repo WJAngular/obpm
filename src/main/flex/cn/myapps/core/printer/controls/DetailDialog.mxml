@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	title="设置" width="494" height="312" cornerRadius="4"
+	backgroundAlpha="0.8" 
+	close="{titlewindow1_closeHandler(event)}" showCloseButton="true" alpha="0.9"
+	creationComplete="initDialog();">
+	
+			<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import main.flex.cn.myapps.core.printer.components.DetailCanvas;
+			import mx.collections.ArrayCollection;
+			import mx.managers.PopUpManager;
+			import mx.events.CloseEvent;
+			import main.flex.cn.myapps.core.printer.components.base.MyCanvas;
+			
+			[Bindable]
+			private var repeatTypeList:ArrayCollection = new ArrayCollection([{label:'静态重复',data:'static'}]);
+			[Bindable]
+			private var repeatTotalList:ArrayCollection = new ArrayCollection([{label:'一次',data:1},{label:'5次',data:5},{label:'10次',data:10},{label:'20次',data:20},{label:'自定义',data:'custom'}]);
+			private var _canvas:DetailCanvas;
+			
+			public function get canvas():DetailCanvas
+			{
+				return _canvas;
+			}
+
+			public function set canvas(value:DetailCanvas):void
+			{
+				_canvas = value;
+			}
+			protected function initDialog():void
+			{
+				repeatType.text = canvas.repeatType;
+				repeatTotal.text = canvas.repeat.toString();
+			}
+			
+			protected function titlewindow1_closeHandler(event:CloseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+				
+			}
+			protected function onComBoxChange(event:Event):void
+			{
+				
+			}
+			protected function onrepeatTotalChange(event:Event):void
+			{
+				if((event.target as ComboBox).selectedItem.data=="custom"){
+					custom.visible=true;
+					customLabel.visible=true;
+				}else{
+					custom.visible=false;
+					customLabel.visible=false;
+					custom.text='';
+				}
+			}
+			
+			protected function doExecution(event:MouseEvent):void
+			{
+				if(custom.text.length>0){
+					canvas.repeat =Number(custom.text);
+				}else{
+					canvas.repeat = repeatTotal.selectedItem.data;
+				}
+				canvas.repeatType = repeatType.selectedItem.data;
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</mx:Script>
+	<mx:TabNavigator x="10" y="10" width="455" height="225">
+		<mx:Canvas label="基本设置" width="100%" height="100%">
+			<mx:ComboBox x="79" y="19" id="repeatType" width="201" change="onComBoxChange(event);">
+			<mx:dataProvider>
+				{repeatTypeList}
+			</mx:dataProvider>
+			</mx:ComboBox>
+			<mx:ComboBox x="79" y="62" id="repeatTotal" width="101" change="onrepeatTotalChange(event);">
+				<mx:dataProvider>
+				{repeatTotalList}
+				</mx:dataProvider>
+			</mx:ComboBox>
+			<mx:Label x="10" y="21" text="重复方式：" fontSize="12" fontWeight="normal"/>
+			<mx:Label x="10" y="62" text="重复次数：" fontSize="12" fontWeight="normal"/>
+			<mx:Label id="customLabel" x="258" y="62" text="次" fontSize="12" fontWeight="normal" visible="false"/>
+			<mx:TextInput id="custom" x="188" y="62" width="62" enabled="true" visible="false"/>
+		</mx:Canvas>
+	</mx:TabNavigator>
+	<mx:Button x="400" y="240" label="确定" click="doExecution(event)"/>
+</mx:TitleWindow>

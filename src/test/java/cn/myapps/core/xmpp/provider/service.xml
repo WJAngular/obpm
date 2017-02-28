@@ -1,0 +1,8 @@
+<obpm xmlns="obpm:iq:service">
+	<name>MenuService</name>
+	<method name="getAllMenusByUser">
+		<parameter name="username" value="testuser" type="string"></parameter>
+		<parameter name="domainName" value="demo" type="string"></parameter>
+		<parameter name="application" value="11de-ef9e-c010eee1-860c-e1cadb714510" type="string"></parameter>
+	</method>
+</obpm>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	title="页面设置" width="494" height="312" cornerRadius="4"
+	backgroundAlpha="0.8" 
+	close="{titlewindow1_closeHandler(event)}" showCloseButton="true" alpha="0.9"
+	creationComplete="initDialog()">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.core.Application;
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+			import mx.events.CloseEvent;
+			import main.flex.cn.myapps.core.printer.util.PaperFormat
+		
+		
+			[Bindable]
+			private var myPaperFormats:ArrayCollection = new ArrayCollection([{label:'A3',data:'A3'},{label:'A4',data:'A4'},{label:'A5',data:'A5'},{label:'LETTER',data:'Letter'},{label:'LEGAL',data:'Legal'},{label:'TABLOID',data:'Tabloid'}]);
+			
+			private var _myFormat:PaperFormat;
+			public var mainApp:DynamicPrinter = null;  
+			
+			public function get myFormat():PaperFormat
+			{
+				return _myFormat;
+			}
+
+			public function set myFormat(value:PaperFormat):void
+			{
+				_myFormat = value;
+			}
+			
+			protected function initDialog():void
+			{
+				pageLabel.text = myFormat.label;
+				//paperFormat = PaperFormat.getPaperFormat(pageLabel.selectedItem.data);
+				
+				wpx.text = myFormat.dimensions[0]+"px";
+				hpx.text = myFormat.dimensions[1]+"px";
+				
+				wic.text = myFormat.inchesSize[0]+"in";
+				hic.text = myFormat.inchesSize[1]+"in";
+				
+				wmm.text = myFormat.mmSize[0]+"mm";
+				hmm.text = myFormat.mmSize[1]+"mm";
+			}
+			
+			protected function titlewindow1_closeHandler(event:CloseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+				
+			}
+			protected function pageLabel_dataChangeHandler(event:Event):void
+			{
+				myFormat = PaperFormat.getPaperFormat(ComboBox(event.target).selectedItem.data);
+				
+				wpx.text = myFormat.dimensions[0]+"px";
+				hpx.text = myFormat.dimensions[1]+"px";
+				
+				wic.text = myFormat.inchesSize[0]+"in";
+				hic.text = myFormat.inchesSize[1]+"in";
+				
+				wmm.text = myFormat.mmSize[0]+"mm";
+				hmm.text = myFormat.mmSize[1]+"mm";
+				
+				
+			}
+			
+			protected function doExecution(event:MouseEvent):void
+			{
+				this.mainApp.paperFormat = myFormat;
+				this.mainApp.onApplicationReSize(event);
+				this.mainApp.canvasResize();
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</mx:Script>
+	<mx:TabNavigator x="10" y="10" width="455" height="225">
+		<mx:Canvas label="纸张大小" width="100%" height="100%">
+			<mx:ComboBox x="79" y="19" id="pageLabel" width="201" close="{pageLabel_dataChangeHandler(event)}">
+			<mx:dataProvider>
+				{myPaperFormats}
+			</mx:dataProvider>
+			</mx:ComboBox>
+			<mx:Label x="10" y="21" text="纸张规格：" fontSize="12" fontWeight="normal"/>
+			<mx:Label x="10" y="61" text="宽      度：" fontSize="12"/>
+			<mx:Label x="10" y="99" text="高      度：" fontSize="12"/>
+			<mx:TextInput x="79" y="61" width="57" id="wpx" editable="false"/>
+			<mx:TextInput x="79" y="99" width="57" id="hpx" editable="false"/>
+			<mx:TextInput x="151" y="61" width="57" id="wic" editable="false"/>
+			<mx:TextInput x="151" y="99" width="57" id="hic" editable="false"/>
+			<mx:TextInput x="223" y="61" width="57" id="wmm" editable="false"/>
+			<mx:TextInput x="223" y="99" width="57" id="hmm" editable="false"/>
+		</mx:Canvas>
+		<mx:Canvas label="页边距" width="100%" height="100%">
+		</mx:Canvas>
+	</mx:TabNavigator>
+	<mx:Button x="400" y="240" label="确定" click="doExecution(event)"/>
+	
+</mx:TitleWindow>

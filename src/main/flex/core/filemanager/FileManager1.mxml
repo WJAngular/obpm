@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="init()">
+	<mx:Style>
+		Application{
+			fontFamily: Arial, "_sans";
+			fontSize:12;
+		}
+		Tree 
+		{ 
+		/*为默认、打开、关闭、有子项等几个状态添加不同的ico*/ 
+		defaultLeafIcon: Embed(source="assets/mxtree/folder_closed.gif"); 
+		folderOpenIcon: Embed(source="assets/mxtree/folder_open.gif"); 
+		folderClosedIcon: Embed(source="assets/mxtree/folder_closed.gif"); 
+		/*disclosureOpenIcon: Embed(source="../images/find.png"); */
+		} 
+	</mx:Style>
+	<mx:Script source="com/filemanager/FileManager.as"/>
+	<mx:RemoteObject endpoint="{hostAddres}/messagebroker/amf" id="FileManagerRO" destination="fileOperate"  fault="faultHandler(event)"/>
+		<mx:ApplicationControlBar x="0" y="0" width="100%">
+			<mx:LinkButton label="根目录" icon="@Embed(source='assets/mxlinkbar/house.png')" click="rootEvent()" fontWeight="normal" fontStyle="normal" textDecoration="underline"/>
+			<mx:VRule width="1" height="20"/>
+			<mx:LinkButton label="刷新" icon="@Embed(source='assets/mxlinkbar/arrow_refresh.png')" click="refreshEvent()" fontWeight="normal" textDecoration="underline"/>
+			<mx:VRule width="1" height="20"/>
+			<mx:LinkButton label="新建文件夹" icon="@Embed(source='assets/mxlinkbar/folder_add.png')" click="newFolderEvent();" fontWeight="normal" textDecoration="underline"/>
+			<mx:VRule width="1" height="20"/>
+			<mx:LinkButton label="删除多文件" icon="@Embed(source='assets/mxlinkbar/delete.png')" click="deleteEvent()" fontWeight="normal" textDecoration="underline"/>
+			<mx:VRule width="1" height="20"/>
+			<mx:LinkButton label="移动文件到" icon="@Embed(source='assets/mxlinkbar/folder_go.png')" click="removeEvent()" fontWeight="normal" textDecoration="underline"/>
+			<mx:VRule width="1" height="20"/>
+			<mx:LinkButton label="复制文件到" icon="@Embed(source='assets/mxlinkbar/folder_page.png')" click="copyEvent()" fontWeight="normal" textDecoration="underline"/>
+			<mx:VRule width="1" height="20"/>
+			<mx:LinkButton label="上传文件" icon="@Embed(source='assets/mxlinkbar/arrow_up.png')" click="uploadEvent()" fontWeight="normal" textDecoration="underline"/>
+		</mx:ApplicationControlBar>
+		<mx:HDividedBox x="0" y="44" width="100%" height="100%">
+			<mx:Tree width="160" height="100%" id="folderTree" labelField="@label" 
+				change="treeChanged()" showRoot="true"
+				verticalScrollPolicy="on" 
+	            showScrollTips="true" 
+	            doubleClickEnabled="true"
+	            doubleClick="doubleClickHandler(event)"
+	            itemEditEnd="itemEditEndHandler(event)"
+	             borderStyle="none"  cornerRadius="10"
+             ></mx:Tree>
+			<mx:Canvas width="100%" height="100%">
+			    <mx:HBox width="100%">
+				    <mx:Label width="50%" id="selectPath" text="{showPath}"/>
+				    <mx:Spacer width="100%"/>
+				    <mx:LinkButton label="添加" fontWeight="normal" textDecoration="underline" icon="@Embed(source='assets/add.png')" click="addFileAndClose()"/>
+				    <mx:LinkButton label="清空选择" fontWeight="normal" textDecoration="underline" icon="@Embed(source='assets/cancel.png')" click="clearEvent()"/>
+			    </mx:HBox>
+			    <mx:DataGrid x="0" y="30" width="100%" height="100%" id="fileDataGrid">
+			        <mx:columns>
+			            <mx:DataGridColumn headerText="文件名" sortable="false" itemRenderer="com.datagrid.FileNameItemRenderer"/>
+			            <mx:DataGridColumn headerText="大小" dataField="size" width="100" sortable="false"/>
+						<mx:DataGridColumn headerText="类型" dataField="type" width="60" sortable="false"/>
+						<mx:DataGridColumn headerText="操作" width="300" sortable="false" itemRenderer="com.datagrid.OperateItemRenderer"/>
+			        </mx:columns>
+			    </mx:DataGrid>
+			</mx:Canvas>
+		</mx:HDividedBox>
+</mx:Application>

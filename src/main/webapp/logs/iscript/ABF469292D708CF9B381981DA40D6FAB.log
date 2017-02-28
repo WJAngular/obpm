@@ -1,0 +1,6 @@
+JsUtil:yearMonth=====2016-09
+JsUtil:select * from TLK_task  where   (CONVERT(varchar(200), ITEM_负责人) ='11e6-3dce-f779a317-b05e-cf51c36584de'  or  ITEM_审批人 like '11e6-3dce-f779a317-b05e-cf51c36584de' ) and  CONVERT(varchar(100), CREATED, 23) >=  CONVERT(varchar(100), GETDATE()-5, 23) and  CONVERT(varchar(100), CREATED, 23) <=  CONVERT(varchar(100), GETDATE()+2, 23)
+JsUtil:sql ========select * from TLK_工作周报 where ITEM_周数 = '39' and ITEM_部门 = '11e6-3d0e-8017f991-b6a6-2fcfcefd00c4'
+JsUtil:yearMonth=====2016-09
+JsUtil:select * from TLK_task  where   (CONVERT(varchar(200), ITEM_负责人) ='11e6-3dce-f779a317-b05e-cf51c36584de'  or  ITEM_审批人 like '11e6-3dce-f779a317-b05e-cf51c36584de' ) and  CONVERT(varchar(100), CREATED, 23) >=  CONVERT(varchar(100), GETDATE()-5, 23) and  CONVERT(varchar(100), CREATED, 23) <=  CONVERT(varchar(100), GETDATE()+2, 23)
+JsUtil:sql ========select * from TLK_工作周报 where ITEM_周数 = '39' and ITEM_部门 = '11e6-3d0e-8017f991-b6a6-2fcfcefd00c4'

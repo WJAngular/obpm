@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="N10004" name="Packaging Generator">
+	<!-- WorkFlow Applet打包 -->
+	<target name="N10004" description="WorkFlow.jar">
+		<jar destfile="WorkFlow.jar">
+			<zipfileset dir="${user.dir}/target/classes" includes="**/workflow/applet/*.*"/>
+			<zipfileset dir="${user.dir}/target/classes" includes="**/workflow/element/*.*"/>
+			<zipfileset dir="${user.dir}/target/classes" includes="**/workflow/utility/*.*"/>
+			<zipfileset dir="${user.dir}/target/classes" includes="**/workflow/engine/*.*"/>
+			<zipfileset dir="${user.dir}/target/classes" includes="**/macro/**/*.*" />
+			<!--
+			<zipfileset dir="C:/Java/jboss-4.0.1sp1/server/default/deploy/webapp.war/WEB-INF/classes" includes="**/workflow/**/*.*,**/macro/runner/*.*,**/sequence/*.* "/>
+			<zipfileset src="C:/Java/jboss-4.0.1sp1/server/default/deploy/webapp.war/WEB-INF/lib/bsf.jar" includes="**/*.*" />
+			-->
+		</jar>
+		<copyfile dest="${user.dir}/src/main/webapp/core/workflow/billflow/defi/WorkFlow.jar" src="WorkFlow.jar" />
+	</target>
+	<!-- Excel Applet打包 -->
+	<target name="N10005" description="MXML.jar">
+		<jar destfile="MXML.jar">
+			<zipfileset dir="${user.dir}/target/classes" includes="**/excelimport/**/*.*"/>
+		</jar>
+		<copyfile dest="${user.dir}/src/main/webapp/core/dynaform/dts/excelimport/MXML.jar" src="MXML.jar" />
+	</target>
+</project>
+
+

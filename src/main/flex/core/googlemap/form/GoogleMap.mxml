@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" backgroundColor="white" width="100%" height="100%">
+<mx:Style> 
+		Application{
+			fontFamily: Arial, "_sans";
+			fontSize:12;
+		}
+</mx:Style>
+<mx:Script source="GoogleMap/GoogleMap.as"/>
+<mx:RemoteObject id="GoogleMapRO" destination="GoogleMap" endpoint="{hostAddres}/messagebroker/amf" fault="fault(event)"/>
+	 <mx:Panel width="100%" height="100%" title="Google Map" borderStyle="none" headerColors="#A6C9E2, #A6C9E2" backgroundColor="#dfe8f6" fontFamily="宋体">
+        <mx:VBox width="100%" height="100%">
+            <mx:Canvas width="100%" height="13%"  borderStyle="solid">
+            	<mx:HBox width="100%" height="100%" id="addresshbox">
+                <mx:Label text="地址:" fontSize="15" fontWeight="bold"/>
+                <mx:Label id="address" text="{countryStr+provinceStr+cityStr+townStr+streetStr}" width="400" fontSize="15" fontWeight="bold"/>
+            	</mx:HBox>
+            	<mx:HBox width="100%" id="loadinghbox" visible="false" y="21">
+            		<mx:SWFLoader source="loading.swf" width="60" height="40"/>
+            		<mx:Label text="数据加载中..."/>
+            	</mx:HBox>
+            	<mx:HBox width="100%" y="42">
+            		<mx:LinkButton icon="@Embed(source='add.png')" label="添加坐标信息到表单"  click="saveInformation()"/>
+        			<mx:LinkButton icon="@Embed(source='delete.png')" label="清空坐标信息"  click="clearInformation(event)"/>
+            	</mx:HBox>
+            </mx:Canvas>
+            
+            <mx:HDividedBox width="100%" height="87%"  borderStyle="solid">
+            	<mx:Canvas width="20%" height="100%" id="paramsCanvas" borderStyle="solid">
+        			<mx:Label text="国家:" x="10"/>
+        			<mx:ComboBox width="120" x="10" y="26" id="countrycombox" labelField="@label" change="countryChange();doGeocode(event);"/>
+        			<mx:Label text="省市自治区:" x="10" y="63"/>
+        			<mx:ComboBox width="120" x="10" y="89" id="provincecombox" labelField="@label" change="provinceChange();doGeocode(event);"/>
+        			<mx:Label text="市县区:" x="10" y="119"/>
+        			<mx:ComboBox width="120" x="10" y="145" id="citycombox" labelField="@label" change="cityChange();doGeocode(event);"/>
+        			<mx:Label text="市县镇:" x="10" y="175"/>
+        			<mx:ComboBox width="120" x="10" y="201" id="towncombox" labelField="@label" change="townChange();doGeocode(event);"/>
+        			<mx:Label text="标题:" x="10" y="231"/>
+        			<mx:TextInput width="120" x="10" y="257" id="titletextinput"/>
+        			<mx:Label text="内容:" x="10" y="287"/>
+        			<mx:TextArea width="120" x="10" y="313" height="101" id="detailtextarea"/>
+            	</mx:Canvas>
+            	<mx:UIComponent id="mapHolder" initialize="onHolderCreated(event);" resize="onHolderResized(event)" width="80%" height="100%"/>   
+            </mx:HDividedBox>
+        </mx:VBox>
+    </mx:Panel>
+</mx:Application>

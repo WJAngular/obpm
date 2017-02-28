@@ -1,0 +1,30 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+  <package name="clientManager" extends="myapps-default,json-default" namespace="/client">
+  	<action name="jumpClient" class="net.gdsc.action.client.ClientAction" method="doJumpClient">
+		<result name="jump" type="dispatcher">
+			/gdsc/matterclient.jsp
+		</result>
+	</action>
+  	<action name="addClient" class="net.gdsc.action.client.ClientAction" method="doAddClient">
+		<result name="success" type="json">
+			<param name="root">result</param>
+		</result>
+	</action>
+  	<action name="checkNo" class="net.gdsc.action.client.ClientAction" method="doCheckNo">
+		<result name="success" type="json">
+			<param name="root">result</param>
+		</result>
+	</action>
+  </package>
+  
+  <package name="clientJSON" extends="myapps-default,json-default" namespace="/clientjson">
+  	<action name="clientDefault" class="net.gdsc.action.client.ClientAction" method="doClientNoValue">
+  		<result type="json">
+			<param name="root">dataFlag</param>
+		</result>
+	</action>
+  </package>  
+</struts>

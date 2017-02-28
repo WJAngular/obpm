@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="254" height="280" creationComplete="init()" showCloseButton="true" close="closeEvent()">
+	<mx:Script source="event/SaveDialogEvent.as"/>
+	<mx:Label x="10" y="10" text="名称："/>
+	<mx:TextInput x="48" y="8" id="nameTextInput"/>
+	<mx:Label x="10" y="52" text="备注："/>
+	<mx:TextArea x="48" y="51" height="119" id="descriptionTextArea"/>
+	<mx:LinkButton x="58" y="196" icon="@Embed(source='../assets/ok.png')" label="确定" fontWeight="normal" click="saveEvent()"/>
+	<mx:LinkButton x="137" y="196" label="取消" icon="@Embed(source='../assets/cancel.png')" fontWeight="normal" click="closeEvent()"/>
+</mx:TitleWindow>

@@ -1,0 +1,19 @@
+@media print {
+   #oLayer {display:none;}
+   .ptable-header{background:#eee;}
+   
+	#toAll {
+		table-layout : fixed;
+		width : 210mm;
+	}
+}
+
+table{
+	border-collapse:collapse;
+	border-spacing:0;
+	width: 100%;
+}
+
+table tr td{
+	border: 1px solid #c0c0c0;
+}

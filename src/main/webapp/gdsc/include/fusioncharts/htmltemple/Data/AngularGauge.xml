@@ -1,0 +1,25 @@
+<chart  bgColor='e8f0f2,ffffff' baseFont='Arial' baseFontSize='12' baseFontColor='60634E' showNames='1' numberSuffix='%' fillAngle='45' upperLimit='100' lowerLimit='0' 
+majorTMNumber='10' majorTMHeight='8' showGaugeBorder='0' gaugeOuterRadius='120' gaugeOriginX='273' gaugeOriginY='220' gaugeInnerRadius='1' formatNumberScale='1' displayValueDistance='25' decimalPrecision='2' tickMarkDecimalPrecision='1' pivotRadius='5' showPivotBorder='1' pivotBorderColor='000000' pivotBorderThickness='5' pivotFillMix='FFFFFF,000000'>
+
+
+
+<colorRange>
+	<color minValue='80' maxValue='100' code='fb1535' />
+	<color minValue='70' maxValue='80' code='f9d301' />
+	<color minValue='0' maxValue='70' code='2ad302' />
+</colorRange>
+
+
+<dials>
+	<dial value='3.6' borderAlpha='0' bgColor='000000' baseWidth='10' topWidth='1' radius='122' />
+</dials>
+
+<annotations>
+	<annotationGroup xPos='253' yPos='220'>
+		<annotation type='circle' xPos='20' yPos='2.5' radius='125' startAngle='0' endAngle='180' fillPattern='linear' fillAsGradient='1' fillColor='dddddd,666666' fillAlpha='100,100' fillRatio='50,50' fillDegree='0' showBorder='1' borderColor='444444' borderThickness='2' />
+		<annotation type='circle' xPos='20' yPos='2.5' radius='123' startAngle='0' endAngle='180' fillPattern='linear' fillAsGradient='1' fillColor='666666,ffffff' fillAlpha='100,100' fillRatio='50,50' fillDegree='0' />
+	</annotationGroup>
+</annotations>
+
+
+</chart>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:cookbook="oreilly.cookbook.*" xmlns:editor="cn.myapps.core.macro.editor.*"
+	creationComplete="onCreationComplete()"
+	resize="resize()"
+	horizontalScrollPolicy = "off"	
+	verticalScrollPolicy="off"
+	paddingTop="0"
+	paddingLeft="0"
+	paddingBottom="0"
+	paddingRight="0"
+	>
+
+	<editor:CodeEditor id="editor" width="500" height="500" />
+
+<mx:Script>
+	<![CDATA[
+		import mx.controls.Alert;
+   	private function onCreationComplete():void{
+   		registerCallBacks();
+   		editor.setReadonly(true);
+   		editor.setText("");
+   		editor.goLine(0);
+   	}
+   	
+   	private function registerCallBacks():void {
+        ExternalInterface.addCallback("getText",getText);
+        ExternalInterface.addCallback("setText",setText);
+        ExternalInterface.addCallback("goLine",goLine);
+        ExternalInterface.addCallback("setReadonly",setReadonly);
+    	resize();
+    }
+
+	public function getText():String {
+		return editor.getText();
+	}
+	
+	public function setText(value:String):void {
+		editor.setText(value);
+	}
+	
+	public function setReadonly(value:Boolean):void {
+		editor.setReadonly(value);
+	}
+	
+	public function goLine(line:Number):void {
+		editor.goLine(line);
+	}
+	
+	private function resize() : void {
+		if (editor != null && this.height > 0 && this.width > 0 ) {
+			editor.height = this.height;
+			editor.width = this.width;
+		}
+	}	
+	]]>
+</mx:Script>
+
+</mx:Application>

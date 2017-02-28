@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas creationComplete="onInitialize(event)"
+	 resize="onInitialize(event)"
+	 xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import flash.sampler.NewObjectSample;
+		
+			import main.flex.cn.myapps.core.printer.components.ItemControl;
+			import mx.controls.Image;
+		
+		private static var grapWidth: Number = 20;
+		
+
+		
+		public function onInitialize(event: Event): void{
+			
+
+			
+		this.graphics.clear();
+		
+		//填充背景
+		this.graphics.beginFill(0xFFFFFF);
+		
+		this.graphics.drawRect(0, 0, this.width, this.height);
+		this.graphics.endFill();
+		
+		this.graphics.lineStyle(1, 0xBBBBBB);
+		//画横线
+		var i : int = 0;
+		var totalLength: Number = 0;
+		while(totalLength <= this.height){
+		this.graphics.moveTo(0, grapWidth * i);
+		this.graphics.lineTo(this.width, grapWidth * i);
+		totalLength = grapWidth * i;
+		i ++;
+		}
+		
+		//变量清零
+		totalLength = 0;
+		i = 0;
+		
+		//画竖线
+		while(totalLength <= this.width){
+		this.graphics.moveTo(grapWidth * i, 0);
+		this.graphics.lineTo(grapWidth * i, this.height );
+		totalLength = grapWidth * i;
+		i ++;
+		}
+		
+		}
+		//创建控制方块（图标）
+		public function addNewICO(
+		icon:Object,strName:String,
+		x:Number,y:Number):ItemControl{
+		var newBox: ItemControl = new ItemControl(icon,0);
+		newBox.label = strName;
+		newBox.draw();
+		newBox.type=-1;//-1代表是ControlBox
+		newBox.name = strName;
+		newBox.x = x-10;
+		newBox.y = y-10;
+		
+		this.addChild(newBox);
+		
+		return newBox;
+		}
+		]]>
+	</mx:Script>
+	
+</mx:Canvas>

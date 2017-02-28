@@ -1,0 +1,12 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+  <package name="lotteryManager" extends="myapps-default,json-default" namespace="/lottery">
+  	<action name="lottery" class="net.gdsc.action.lottery.LotteryAction" method="doLottery">
+  		<result name="success" type="json">
+			<param name="root">result</param>
+		</result>
+	</action>
+  </package>
+</struts>

@@ -1,0 +1,9 @@
+<chart caption='Unit Sales' xAxisName='Month' yAxisName='Units' showValues='0' formatNumberScale='0' useRoundEdges='1' baseFont='Arial' baseFontSize='12' baseFontColor='60634E' showAlternateHGridColor='1' anchorRadius='1' alternateHGridColor='CC3300' alternateHGridAlpha='5' divLineColor='CC3300' divLineAlpha='20' shadowAlpha='40' bgColor='e8f0f2,ffffff'  showNames='1'>
+<set label='Jan' value='462' />
+<set label='Feb' value='857' />
+<set label='Mar' value='100' />
+<set label='Apr' value='494.222' />
+<set label='May' value='761' />
+<set label='Jun' value='960' />
+
+</chart>

@@ -1,0 +1,184 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="mblogin" extends="myapps-default" namespace="/mobile">
+		<action name="login"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doLogin">
+			<result name="success" type="dispatcher">
+				toXml.jsp
+			</result>
+			<result name="error" type="dispatcher">
+				error.jsp
+			</result>
+			<result name="input" type="dispatcher">
+				error.jsp
+			</result>
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+		<action name="login2"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doLogin2">
+			<result name="success" type="dispatcher">
+				toXml.jsp
+			</result>
+			<result name="error" type="dispatcher">
+				error.jsp
+			</result>
+			<result name="input" type="dispatcher">
+				error.jsp
+			</result>
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+		<action name="searchResource"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doSearchResource">
+			<result name="success" type="dispatcher">
+				toXml.jsp
+			</result>
+			<result name="error" type="dispatcher">
+				error.jsp
+			</result>
+			<result name="input" type="dispatcher">
+				error.jsp
+			</result>
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+		<action name="getmenu"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doGetMenu">
+			<result name="success" type="dispatcher">
+				toXml.jsp
+			</result>
+			<result name="error" type="dispatcher">
+				error.jsp
+			</result>
+			<result name="input" type="dispatcher">
+				error.jsp
+			</result>
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+		<action name="getPending"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doGetPending">
+			<result name="success" type="dispatcher">
+				toXml.jsp
+			</result>
+			<result name="error" type="dispatcher">
+				error.jsp
+			</result>
+			<result name="input" type="dispatcher">
+				error.jsp
+			</result>
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+		<action name="refreshResource"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doRefresh">
+			<result name="success" type="dispatcher">
+				toXml.jsp
+			</result>
+			<result name="error" type="dispatcher">
+				error.jsp
+			</result>
+			<result name="input" type="dispatcher">
+				error.jsp
+			</result>
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+		<action name="homepage"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doHomePage">
+			<result name="success" type="dispatcher">
+				toXml.jsp
+			</result>
+			<result name="error" type="dispatcher">
+				error.jsp
+			</result>
+			<result name="input" type="dispatcher">
+				error.jsp
+			</result>
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+		<action name="acquireApps"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doAcquireApps">
+			<result name="success" type="dispatcher">
+				toXml.jsp
+			</result>
+			<result name="error" type="dispatcher">
+				error.jsp
+			</result>
+			<result name="input" type="dispatcher">
+				error.jsp
+			</result>
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+		<action name="changeApp"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doChange">
+			<result name="success" type="dispatcher">
+				toXml.jsp
+			</result>
+			<result name="error" type="dispatcher">
+				error.jsp
+			</result>
+			<result name="input" type="dispatcher">
+				error.jsp
+			</result>
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+		<action name="logout"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doLogout">
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+		<action name="changeApplication"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doChangeApplication">
+			<result name="success" type="dispatcher">toXml.jsp</result>
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+		<action name="getPersonalMessage"
+			class="cn.myapps.mobile.login.MbLoginAction"
+			method="doGetPersonalMessage">
+			<result name="success" type="dispatcher">
+				toXml.jsp
+			</result>
+			<result name="error" type="dispatcher">
+				error.jsp
+			</result>
+			<result name="input" type="dispatcher">
+				error.jsp
+			</result>
+		   	<interceptor-ref name="validationWorkflowStack"/>
+			<interceptor-ref name="params" />
+		</action>
+		
+	</package>
+
+	
+</struts>

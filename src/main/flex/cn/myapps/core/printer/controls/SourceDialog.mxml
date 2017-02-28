@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns="xsive.controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="564" height="220" backgroundColor="#FFFFFF" cornerRadius="4" borderStyle="solid" borderThickness="0" dropShadowEnabled="true">
+	<mx:Image x="10" y="10" width="57" height="53" source="../asserts/BuzzyBee.png" scaleContent="false" id="img_icon"/>
+	<mx:Button x="497" y="188" label="Ok" id="butn_ok" click="{MyPopUpManager.removePopUp(this)}"/>
+	<mx:TextArea x="75" y="10" width="464" borderStyle="none" id="xmlSource" text="{strXML}" height="170"/>
+	<mx:Script>
+		<![CDATA[
+			import main.flex.cn.myapps.core.printer.util.MyPopUpManager;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			private var _strXML:String;
+			
+			public function set strXML(xml:String):void
+			{
+				_strXML = xml;
+			}
+			[Bindable]
+			public function get strXML():String
+			{
+				return _strXML;
+			}
+
+			protected function titlewindow1_closeHandler(event:CloseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+			}
+
+		]]>
+	</mx:Script>
+</mx:Canvas>
